@@ -17,12 +17,15 @@ else
 	${CC} ${LDFAGS} -o $@ $^
 endif
 
-${OBJDIR}/%.o: ${SRCDIR}/%.c
+${OBJDIR}/%.o: ${SRCDIR}/%.c | ${OBJDIR}
 ifndef CFLAGS
 	${CC} -MMD -MD -o $@ -c $<
 else
 	${CC} ${CFLAGS} -MMD -MD -o $@ -c $<
 endif
+
+${OBJDIR}:
+	mkdir ${OBJDIR}
 
 .PHONY: clean
 clean:
