@@ -2,20 +2,16 @@
 #include <stdlib.h>
 
 #include "inc/arg_handler.h"
+#include "inc/randstr_generator.h"
 
 int main(int argc, char** argv) {
   struct config* config = get_config(argc, argv);
 
-  printf(
-    "lowercase: %d\nuppercase: %d\nnumbers: %d\nspecial: %d\nspace: %d\nlength: %d\n",
-    config->lowercase,
-    config->uppercase,
-    config->numbers,
-    config->special_chars,
-    config->white_space,
-    config->str_length
-  );
+  char* rand_str = get_randstr(config);
 
+  printf("[!] %s\n", rand_str);
+
+  free(rand_str);
   free(config);
   return 0;
 }
