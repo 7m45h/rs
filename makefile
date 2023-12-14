@@ -10,7 +10,7 @@ OBJS := $(patsubst %.c,%.o,${SRCS})
 
 BIN := $(shell basename ${CURDIR})
 
-${BIN}: ${OBJDIR}/${OBJS}
+${BIN}: $(addprefix ${OBJDIR}/,${OBJS})
 ifndef LDFLAGS
 	${CC} -o $@ $^
 else
@@ -18,8 +18,10 @@ else
 endif
 
 ${OBJDIR}/%.o: ${SRCDIR}/%.c
-	${CC} ${CFLAGS} -o $@ -c $<
+	${CC} ${CFLAGS} -MMD -MD -o $@ -c $<
 
 .PHONY: clean
 clean:
-	rm -r ${BIN} $(wildcard ${OBJDIR}/*.o)
+	rm -r ${BIN} $(wildcard ${OBJDIR}/*)
+
+-include $(addprefix ${OBJDIR}/,$(patsubst %.o,%.d,${OBJS}))
