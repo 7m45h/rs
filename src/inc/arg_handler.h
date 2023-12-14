@@ -1,3 +1,5 @@
+#pragma once
+
 struct config {
   int lowercase;
   int uppercase;
