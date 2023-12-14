@@ -18,7 +18,11 @@ else
 endif
 
 ${OBJDIR}/%.o: ${SRCDIR}/%.c
+ifndef CFLAGS
+	${CC} -MMD -MD -o $@ -c $<
+else
 	${CC} ${CFLAGS} -MMD -MD -o $@ -c $<
+endif
 
 .PHONY: clean
 clean:
