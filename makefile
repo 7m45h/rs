@@ -1,4 +1,5 @@
 CC := gcc
+CPPFLAGS := -MMD
 CFLAGS := -Wall -march=native -Ofast
 LDFLAGS := 
 
@@ -19,9 +20,9 @@ endif
 
 ${OBJDIR}/%.o: ${SRCDIR}/%.c | ${OBJDIR}
 ifndef CFLAGS
-	${CC} -MMD -MD -o $@ -c $<
+	${CC} ${CPPFLAGS} -o $@ -c $<
 else
-	${CC} ${CFLAGS} -MMD -MD -o $@ -c $<
+	${CC} ${CPPFLAGS} ${CFLAGS} -o $@ -c $<
 endif
 
 ${OBJDIR}:
