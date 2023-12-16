@@ -3,8 +3,8 @@
 
 #include "inc/arg_handler.h"
 
-#define DEFAULT_STR_LENGTH 20
-#define DEFAULT_STR_COUNT 5
+#define DEFAULT_STR_LENGTH 32
+#define DEFAULT_STR_COUNT  4
 
 const char* argp_program_version = "rs 0.0.0";
 static char doc[] = "generate random strings";
@@ -48,6 +48,7 @@ static error_t parse_opt(int key, char* arg, struct argp_state* state) {
     default:
       return ARGP_ERR_UNKNOWN;
   }
+
   return 0;
 }
 
@@ -56,14 +57,16 @@ static struct argp argp = {options, parse_opt, NULL, doc};
 struct config* get_config(int argc, char** argv) {
   struct config* config = malloc(sizeof(struct config));
 
-  // set defalts
-  config->lowercase = 1;
-  config->uppercase = 1;
-  config->numbers = 1;
-  config->special_chars = 1;
-  config->white_space = 0;
-  config->str_length = DEFAULT_STR_LENGTH;
-  config->count = DEFAULT_STR_COUNT;
+  if (argc < 2) {
+    config->lowercase     = 1;
+    config->uppercase     = 1;
+    config->numbers       = 1;
+    config->special_chars = 1;
+    config->white_space   = 1;
+  }
+
+  config->str_length    = DEFAULT_STR_LENGTH;
+  config->count         = DEFAULT_STR_COUNT;
 
   argp_parse(&argp, argc, argv, 0, 0, config);
 
