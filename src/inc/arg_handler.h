@@ -7,6 +7,7 @@ struct config {
   int special_chars;
   int white_space;
   int str_length;
+  int count;
 };
 
 struct config* get_config(int argc, char** argv);

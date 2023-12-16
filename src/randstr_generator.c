@@ -11,14 +11,14 @@
 #define SPECIAL_CHARS "!\"#$%&\\'()*+,-./:;<=>?@[]^_`{|}~"
 #define WHITE_SPACE   " "
 
-#define TOTAL_CHAR_NUM 93
+#define TOTAL_CHAR_NUM 128
 
-char* get_randstr(struct config* config) {
+char** get_randstr(struct config* config) {
   srandom(time(NULL));
 
   int len_str_src = 0;
   char* str_src = calloc(TOTAL_CHAR_NUM, sizeof(char));
-  char* str_out = calloc(config->str_length, sizeof(char));
+  char** str_out_arr = calloc(config->count, sizeof(char*));
 
   if (config->lowercase)     str_src = strcat(str_src, LOWERCASE);
   if (config->uppercase)     str_src = strcat(str_src, UPPERCASE);
@@ -28,11 +28,24 @@ char* get_randstr(struct config* config) {
 
   len_str_src = strlen(str_src);
 
-  for (int i = 0; i < config->str_length; i++) {
-    str_out[i] = str_src[random() % len_str_src];
+  for (int i = 0; i < config->count; i++) {
+    char* str_out = calloc(config->str_length, sizeof(char));
+
+    for (int j = 0; j < config->str_length; j++) {
+      str_out[j] = str_src[random() % len_str_src];
+    }
+
+    str_out_arr[i] = str_out;
   }
 
   free(str_src);
 
-  return str_out;
+  return str_out_arr;
+}
+
+void clean_randstr(char** rand_str_arr, int count) {
+  for (int i = 0; i < count; i++) {
+    free(rand_str_arr[i]);
+  }
+  free(rand_str_arr);
 }

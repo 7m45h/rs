@@ -7,11 +7,13 @@
 int main(int argc, char** argv) {
   struct config* config = get_config(argc, argv);
 
-  char* rand_str = get_randstr(config);
+  char** rand_str_arr = get_randstr(config);
 
-  printf("[!] %s\n", rand_str);
+  for (int i = 0; i < config->count; i++) {
+    printf("%s\n", rand_str_arr[i]);
+  }
 
-  free(rand_str);
+  clean_randstr(rand_str_arr, config->count);
   free(config);
   return 0;
 }

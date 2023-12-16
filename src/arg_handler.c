@@ -4,6 +4,7 @@
 #include "inc/arg_handler.h"
 
 #define DEFAULT_STR_LENGTH 20
+#define DEFAULT_STR_COUNT 5
 
 const char* argp_program_version = "rs 0.0.0";
 static char doc[] = "generate random strings";
@@ -15,6 +16,7 @@ static struct argp_option options[] = {
   {"special_chars", 's', 0,        0, "incluse special chars"},
   {"space",         'w', 0,        0, "include white space"},
   {"length",        'L', "LENGTH", 0, "length of the random string"},
+  {"count",         'C', "COUNT",  0, "number of strings to return"},
   {0}
 };
 
@@ -40,6 +42,9 @@ static error_t parse_opt(int key, char* arg, struct argp_state* state) {
     case 'L':
       config->str_length = atoi(arg) ? atoi(arg) : DEFAULT_STR_LENGTH;
       break;
+    case 'C':
+      config->count = atoi(arg) ? atoi(arg) : DEFAULT_STR_COUNT;
+      break;
     default:
       return ARGP_ERR_UNKNOWN;
   }
@@ -58,6 +63,7 @@ struct config* get_config(int argc, char** argv) {
   config->special_chars = 1;
   config->white_space = 0;
   config->str_length = DEFAULT_STR_LENGTH;
+  config->count = DEFAULT_STR_COUNT;
 
   argp_parse(&argp, argc, argv, 0, 0, config);
 
