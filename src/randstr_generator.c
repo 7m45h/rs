@@ -29,13 +29,11 @@ char** get_randstr(struct config* config) {
   len_str_src = strlen(str_src);
 
   for (int i = 0; i < config->count; i++) {
-    char* str_out = calloc(config->str_length, sizeof(char));
+    str_out_arr[i] = calloc(config->str_length, sizeof(char));
 
     for (int j = 0; j < config->str_length; j++) {
-      str_out[j] = str_src[random() % len_str_src];
+      str_out_arr[i][j] = str_src[random() % len_str_src];
     }
-
-    str_out_arr[i] = str_out;
   }
 
   free(str_src);
