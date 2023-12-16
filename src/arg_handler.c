@@ -55,20 +55,20 @@ static error_t parse_opt(int key, char* arg, struct argp_state* state) {
 static struct argp argp = {options, parse_opt, NULL, doc};
 
 struct config* get_config(int argc, char** argv) {
-  struct config* config = malloc(sizeof(struct config));
+  struct config* config = calloc(1, sizeof(struct config));
 
-  if (argc < 2) {
+  config->str_length    = DEFAULT_STR_LENGTH;
+  config->count         = DEFAULT_STR_COUNT;
+
+  argp_parse(&argp, argc, argv, 0, 0, config);
+
+  if (!(config->lowercase + config->uppercase + config->numbers + config->special_chars + config->white_space)) {
     config->lowercase     = 1;
     config->uppercase     = 1;
     config->numbers       = 1;
     config->special_chars = 1;
     config->white_space   = 1;
   }
-
-  config->str_length    = DEFAULT_STR_LENGTH;
-  config->count         = DEFAULT_STR_COUNT;
-
-  argp_parse(&argp, argc, argv, 0, 0, config);
 
   return config;
 }
