@@ -13,7 +13,7 @@
 
 #define TOTAL_CHAR_NUM 128
 
-char** get_randstr(struct Config* config) {
+char** get_randstrs(struct Config* config) {
   srandom(time(NULL));
 
   int len_str_src = 0;
@@ -41,7 +41,7 @@ char** get_randstr(struct Config* config) {
   return str_out_arr;
 }
 
-void clean_randstr(char** rand_str_arr, int count) {
+void clean_randstrs(char** rand_str_arr, int count) {
   for (int i = 0; i < count; i++) {
     free(rand_str_arr[i]);
   }
