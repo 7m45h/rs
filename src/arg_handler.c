@@ -5,7 +5,7 @@
 #include "inc/arg_handler.h"
 #include "inc/rs_config.h"
 
-const char* argp_program_version = "rs 1.0.0";
+const char* argp_program_version = "rs 2.0.0";
 static char doc[] = "generate random strings";
 
 static struct argp_option options[] = {
@@ -46,11 +46,17 @@ static error_t parse_opt(int key, char* arg, struct argp_state* state)
     break;
 
     case 'C':
-    config->count = atoi(arg) ? atoi(arg) : DEFAULT_LENGTH;
+    if (atoi(arg) != 0)
+    {
+      config->count = atoi(arg);
+    }
     break;
 
     case 'L':
-    config->length = atoi(arg) ? atoi(arg) : DEFAULT_COUNT;
+    if (atoi(arg) != 0)
+    {
+      config->length = atoi(arg);
+    }
     break;
 
     default:
@@ -62,7 +68,7 @@ static error_t parse_opt(int key, char* arg, struct argp_state* state)
 
 static struct argp argp = {options, parse_opt, NULL, doc};
 
-struct rs_config* ah_getconfig(int argc, char** argv)
+struct rs_config* ah_getConfig(int argc, char** argv)
 {
   struct rs_config* config = calloc(1, sizeof(struct rs_config));
 
@@ -71,7 +77,7 @@ struct rs_config* ah_getconfig(int argc, char** argv)
 
   argp_parse(&argp, argc, argv, 0, 0, config);
 
-  if (config->lowercase && config->uppercase && config->digits && config->punctuation && config->whitespace)
+  if (!(config->lowercase && config->uppercase && config->digits && config->punctuation && config->whitespace))
   {
     config->lowercase   = true;
     config->uppercase   = true;
@@ -83,7 +89,7 @@ struct rs_config* ah_getconfig(int argc, char** argv)
   return config;
 }
 
-void ah_freeconfig(struct rs_config* config)
+void ah_freeConfig(struct rs_config* config)
 {
   free(config);
 }

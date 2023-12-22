@@ -2,5 +2,5 @@
 
 #include "rs_config.h"
 
-struct rs_config* ah_getconfig(int argc, char** argv);
-void ah_freeconfig(struct rs_config* config);
+struct rs_config* ah_getConfig(int argc, char** argv);
+void ah_freeConfig(struct rs_config* config);
