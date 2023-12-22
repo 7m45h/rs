@@ -13,7 +13,7 @@
 
 #define TOTAL_CHAR_NUM 128
 
-char** get_randstrs(struct Config* config) {
+char** get_randstrs(struct rs_config* config) {
   srandom(time(NULL));
 
   int len_str_src = 0;

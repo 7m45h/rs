@@ -21,7 +21,7 @@ static struct argp_option options[] = {
 };
 
 static error_t parse_opt(int key, char* arg, struct argp_state* state) {
-  struct Config* config = state->input;
+  struct rs_config* config = state->input;
   
   switch (key) {
     case 'l':
@@ -54,8 +54,8 @@ static error_t parse_opt(int key, char* arg, struct argp_state* state) {
 
 static struct argp argp = {options, parse_opt, NULL, doc};
 
-struct Config* get_config(int argc, char** argv) {
-  struct Config* config = calloc(1, sizeof(struct Config));
+struct rs_config* get_config(int argc, char** argv) {
+  struct rs_config* config = calloc(1, sizeof(struct rs_config));
 
   config->str_length    = DEFAULT_STR_LENGTH;
   config->count         = DEFAULT_STR_COUNT;
