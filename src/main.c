@@ -5,7 +5,7 @@
 #include "inc/randstr_generator.h"
 
 int main(int argc, char** argv) {
-  struct config* config = get_config(argc, argv);
+  struct Config* config = get_config(argc, argv);
 
   char** rand_str_arr = get_randstr(config);
 

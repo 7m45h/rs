@@ -1,6 +1,6 @@
 #pragma once
 
-struct config {
+struct Config {
   int lowercase;
   int uppercase;
   int numbers;
@@ -10,4 +10,4 @@ struct config {
   int count;
 };
 
-struct config* get_config(int argc, char** argv);
+struct Config* get_config(int argc, char** argv);
