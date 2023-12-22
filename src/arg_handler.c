@@ -5,7 +5,7 @@
 #include "inc/arg_handler.h"
 #include "inc/rs_config.h"
 
-const char* argp_program_version = "rs 2.0.0";
+const char* argp_program_version = "rs 2.0.1";
 static char doc[] = "generate random strings";
 
 static struct argp_option options[] = {
@@ -46,14 +46,14 @@ static error_t parse_opt(int key, char* arg, struct argp_state* state)
     break;
 
     case 'C':
-    if (atoi(arg) != 0)
+    if (atoi(arg) > 0)
     {
       config->count = atoi(arg);
     }
     break;
 
     case 'L':
-    if (atoi(arg) != 0)
+    if (atoi(arg) > 0)
     {
       config->length = atoi(arg);
     }
