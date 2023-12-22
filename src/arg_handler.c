@@ -6,7 +6,7 @@
 #define DEFAULT_STR_LENGTH 32
 #define DEFAULT_STR_COUNT  4
 
-const char* argp_program_version = "rs 0.0.0";
+const char* argp_program_version = "rs 1.0.0";
 static char doc[] = "generate random strings";
 
 static struct argp_option options[] = {
