@@ -5,7 +5,7 @@
 #include "inc/arg_handler.h"
 #include "inc/rs_config.h"
 
-const char* argp_program_version = "rs 2.0.1";
+const char* argp_program_version = "rs 2.0.2";
 static char doc[] = "generate random strings";
 
 static struct argp_option options[] = {
@@ -77,7 +77,7 @@ struct rs_config* ah_getConfig(int argc, char** argv)
 
   argp_parse(&argp, argc, argv, 0, 0, config);
 
-  if (!(config->lowercase && config->uppercase && config->digits && config->punctuation && config->whitespace))
+  if (!(config->lowercase || config->uppercase || config->digits || config->punctuation || config->whitespace))
   {
     config->lowercase   = true;
     config->uppercase   = true;

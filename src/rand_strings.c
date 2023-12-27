@@ -29,11 +29,11 @@ struct rand_strings* rs_getRandStrings(struct rs_config* config)
     r_strings->strings[i] = calloc(config->length, sizeof(char));
   }
 
-  if (config->lowercase)   char_pool = strcat(char_pool, ASCII_LOWERCASE);
-  if (config->uppercase)   char_pool = strcat(char_pool, ASCII_UPPERCASE);
-  if (config->digits)      char_pool = strcat(char_pool, DIGITS);
-  if (config->punctuation) char_pool = strcat(char_pool, PUNCTUATIONS);
-  if (config->whitespace)  char_pool = strcat(char_pool, WHITESPACE);
+  if (config->lowercase)   strcat(char_pool, ASCII_LOWERCASE);
+  if (config->uppercase)   strcat(char_pool, ASCII_UPPERCASE);
+  if (config->digits)      strcat(char_pool, DIGITS);
+  if (config->punctuation) strcat(char_pool, PUNCTUATIONS);
+  if (config->whitespace)  strcat(char_pool, WHITESPACE);
 
   char_pool_size = strlen(char_pool);
 
