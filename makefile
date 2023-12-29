@@ -1,7 +1,7 @@
 CC := gcc
 CPPFLAGS := -MMD
 CFLAGS := -Wall -march=native -Ofast
-LDFLAGS := 
+LDFLAGS :=
 
 SRCDIR := ./src
 OBJDIR := ./obj
@@ -13,9 +13,17 @@ BIN := $(shell basename ${CURDIR})
 
 ${BIN}: $(addprefix ${OBJDIR}/,${OBJS})
 ifndef LDFLAGS
+ifndef CFLAGS
 	${CC} -o $@ $^
 else
-	${CC} ${LDFAGS} -o $@ $^
+	${CC} ${CFLAGS} -o $@ $^
+endif
+else
+ifndef CFLAGS
+	${CC} ${LDFLAGS} -o $@ $^
+else
+	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^
+endif
 endif
 
 ${OBJDIR}/%.o: ${SRCDIR}/%.c | ${OBJDIR}
